@@ -34,9 +34,9 @@ echo ""
 ### Python version ###
 echo "[INFO]##### Python version #####"
 echo "* Response for the default 'python':"
-python --version
+python --version 2>&1
 echo "* Check if 'python2' is present:"
-python2 --version
+python2 --version 2>&1
 echo ""
 
 ### info on nvidia cards ###
