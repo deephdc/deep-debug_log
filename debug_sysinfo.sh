@@ -57,10 +57,10 @@ fi
 echo ""
 ### print all environment settings: ###
 echo "[INFO]##### Environment settings: #####"
-echo "########### Skip those with 'pAssWoRd':"
+echo "###### Skip variable names with 'pAsS':"
 ENV_U_LIST=""
-ENV_PASSWORDS=($(env | grep -i password | cut -d '=' -f1))
-for pass in ${ENV_PASSWORDS[*]}
+ENV_PASS=($(env | grep -i pass.*= | cut -d '=' -f1))
+for pass in ${ENV_PASS[*]}
 do
    ENV_U_LIST="${ENV_U_LIST} -u ${pass}"
    echo $pass
