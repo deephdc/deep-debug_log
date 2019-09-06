@@ -58,7 +58,8 @@ if [ -x $SYSINFO_CMD ]; then
     echo "[INFO] Collecting system information..."
     $SYSINFO_CMD > $SYSINFO_LOG
 else
-   echo "$SYSINFO_CMD not found!"
+   echo "[INFO] $SYSINFO_CMD not found!"
+   echo "[INFO] $SYSINFO_CMD not found!" >>$SYSINFO_LOG
 fi
 
 ### copy sysinfo to the remote dir
@@ -70,19 +71,23 @@ else
     echo "[INFO] rclone not found!"
 fi
 
+echo "====== Starting DEEPaaS API =====" >>$SYSINFO_LOG
 # After collecting sysinfo, start the service
 SERVICE_CMD_PATH=$(which $SERVICE_CMD)
 if [ -x $SERVICE_CMD_PATH ] && [ "$SERVICE_CMD_PATH" != "" ]; then
     SERVICE_CMD="${SERVICE_CMD} ${SERVICE_FLAGS}"
-    echo "[INFO] Starting the service as:"
-    echo "${SERVICE_CMD}"
-    $SERVICE_CMD &
-    echo "[INFO] Now wait for 60s..."
+    echo "[INFO] Starting the service as:" >>$SYSINFO_LOG
+    echo "${SERVICE_CMD}" >>$SYSINFO_LOG
+    $SERVICE_CMD >>$SYSINFO_LOG &
+    echo "[INFO] Now wait for 60s..." >>$SYSINFO_LOG
     # sleep for 60s that deepaas starts
     sleep 60s
 else
-   echo "[INFO] $SERVICE_CMD not found!"
+   echo "[INFO] $SERVICE_CMD not found!" >>$SYSINFO_LOG
 fi
+
+echo "[INFO] Upload sysinfo log file again to remote ${REMOTE_DIR}..."
+rclone copy $SYSINFO_LOG $REMOTE_DIR
 
 # Attempt to 'continuously' upload deepaas log file
 if [ -x $RCLONE_PATH ] && [ "$RCLONE_PATH" != "" ]; then
