@@ -50,7 +50,11 @@ elif [ $# -ge 3 ]; then
 fi
 
 ### Since PORT can be re-defined, set SERVICE_FLAGS here: ###
-SERVICE_FLAGS="--log-file=${DEEPAAS_LOG} --openwhisk-detect --listen-ip=0.0.0.0 --listen-port=${DEEPAAS_PORT}"
+SERVICE_FLAGS="--log-file=${DEEPAAS_LOG} \
+--openwhisk-detect \
+--listen-ip=0.0.0.0 \
+--listen-port=${DEEPAAS_PORT} \
+--debug"
 
 ##### RUN THE SCRIPT #####
 ### collect sysinfo
