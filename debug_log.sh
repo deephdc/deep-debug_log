@@ -53,8 +53,8 @@ fi
 SERVICE_FLAGS="--log-file=${DEEPAAS_LOG} \
 --openwhisk-detect \
 --listen-ip=0.0.0.0 \
---listen-port=${DEEPAAS_PORT} \
---debug"
+--listen-port=${DEEPAAS_PORT}"
+# "--debug" in 0.5.1 causes execution of two instances of deepaas (bug)
 
 ##### RUN THE SCRIPT #####
 ### collect sysinfo
